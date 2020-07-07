@@ -1,5 +1,4 @@
 {
-    "projectName": "awsserverlessairline",
     "providers": [
         "awscloudformation"
     ],
