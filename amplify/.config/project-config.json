@@ -1,4 +1,5 @@
 {
+    "projectName": "awsserverlessairline",
     "providers": [
         "awscloudformation"
     ],
@@ -8,8 +9,8 @@
     "javascript": {
         "framework": "vue",
         "config": {
-            "SourceDir": "src",
-            "DistributionDir": "dist",
+            "SourceDir": "src/frontend",
+            "DistributionDir": "src/frontend/dist",
             "BuildCommand": "npm run-script build",
             "StartCommand": "npm run-script serve"
         }
