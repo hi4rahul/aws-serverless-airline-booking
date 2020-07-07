@@ -103,6 +103,7 @@ import Fuse from "fuse.js";
 import { date } from "quasar";
 import { validationMixin } from "vuelidate";
 import { required, minLength } from "vuelidate/lib/validators";
+import axios from 'axios';
 
 /**
  * parse list of airports provided from Catalog module
@@ -131,7 +132,6 @@ import { required, minLength } from "vuelidate/lib/validators";
 // };
 
 export default {
-  import axios from 'axios'
   /**
    *
    * Search view displays options for searching a flight given a departure, arrival and a date.
