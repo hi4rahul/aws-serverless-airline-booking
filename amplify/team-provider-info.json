@@ -1,4 +1,17 @@
 {
+    "develop": {
+        "awscloudformation": {
+            "AuthRoleName": "amplify-awsserverlessairline-develop-170405-authRole",
+            "UnauthRoleArn": "arn:aws:iam::376567618195:role/amplify-awsserverlessairline-develop-170405-unauthRole",
+            "AuthRoleArn": "arn:aws:iam::376567618195:role/amplify-awsserverlessairline-develop-170405-authRole",
+            "Region": "us-east-1",
+            "DeploymentBucketName": "amplify-awsserverlessairline-develop-170405-deployment",
+            "UnauthRoleName": "amplify-awsserverlessairline-develop-170405-unauthRole",
+            "StackName": "amplify-awsserverlessairline-develop-170405",
+            "StackId": "arn:aws:cloudformation:us-east-1:376567618195:stack/amplify-awsserverlessairline-develop-170405/dd644710-c073-11ea-a2fb-12193276ecaf",
+            "AmplifyAppId": "d1m5zo476er9bx"
+        }
+    },
     "twitch": {
         "awscloudformation": {
             "AuthRoleName": "amplify-awsserverlessairline-twitch-160135-authRole",
