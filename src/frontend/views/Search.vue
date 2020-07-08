@@ -147,10 +147,12 @@ export default {
        * @param {object} departureDate - Departure date chosen by the customer
        * @param {object} suggestionList - Parsed list of airports offered as auto-suggestion
        */
-      departureCity: "",
-      arrivalCity: "",
-      departureDate: new Date(),
-      suggestionList: parseAirports()
+      // departureCity: "",
+      // arrivalCity: "",
+      // departureDate: new Date(),
+      // suggestionList: parseAirports()
+      image: '',
+      uploadURL: ''
     };
   },
   methods: {
