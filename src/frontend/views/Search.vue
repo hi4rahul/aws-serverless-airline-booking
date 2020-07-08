@@ -73,7 +73,7 @@
       <h2 v-if="uploadURL">Success! Image uploaded to:</h2>
       <a :href="uploadURL">{{ uploadURL }}</a>
     </div>
-    <!--<div class="wrapper">
+    <div class="wrapper">
       <q-btn
         @click="search"
         class="cta__button"
@@ -85,7 +85,7 @@
             !$v.arrivalCity.isAirport ||
             $v.arrivalCity.$invalid
         "
-      >-->
+      >
         <q-icon
           class="cta__button--direction"
           name="keyboard_arrow_right"
@@ -98,7 +98,7 @@
 
 <script>
 // @ts-nocheck
-// import airports from "../store/catalog/airports.json";
+import airports from "../store/catalog/airports.json";
 import Fuse from "fuse.js";
 import { date } from "quasar";
 import { validationMixin } from "vuelidate";
@@ -110,15 +110,15 @@ import axios from 'axios';
  *
  * @return {object} - list of airports following auto-suggestion Quasar component contract
  */
-// const parseAirports = () => {
-//   return airports.map(country => {
-//     return {
-//       city: country.city,
-//       label: country.name,
-//       sublabel: country.code
-//     };
-//   });
-// };
+const parseAirports = () => {
+  return airports.map(country => {
+    return {
+      city: country.city,
+      label: country.name,
+      sublabel: country.code
+    };
+  });
+};
 
 /**
  * Validate given input against list of valid IATA airports
@@ -126,10 +126,10 @@ import axios from 'axios';
  * @param {object} vm - Vue scope so outer functions can access store/Vue data
  * @return {boolean} - Boolean whether given airport is a valid IATA airport from airport list
  */
-// const isAirport = (value, vm) => {
-//   // TODO: debounce or throttle this function in compliance with vuelidate
-//   return vm.suggestionList.some(airport => airport.sublabel === value);
-// };
+const isAirport = (value, vm) => {
+  // TODO: debounce or throttle this function in compliance with vuelidate
+  return vm.suggestionList.some(airport => airport.sublabel === value);
+};
 
 export default {
   /**
@@ -167,7 +167,7 @@ export default {
     };
   },
   methods: {
-      onFileChange (e) {
+        onFileChange (e) {
       let files = e.target.files || e.dataTransfer.files
       if (!files.length) return
       this.createImage(files[0])
@@ -196,6 +196,7 @@ export default {
       // Get the presigned URL
       const response = await axios({
         method: 'GET',
+//        url: `https://9y7akoudyd.execute-api.us-east-1.amazonaws.com/developone`
         url: 'https://9y7akoudyd.execute-api.us-east-1.amazonaws.com/developone/uploadmyphoto'
       })
       console.log('Response: ', response.data)
