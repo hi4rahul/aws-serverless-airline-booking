@@ -3,12 +3,12 @@
     <div class="wrapper">
       <div class="heading">
         <div class="q-display-1 search__headline" data-test="search-headline">
-          Where are you going next?
+          Where next?
         </div>
       </div>
     </div>
-   <div class="search__options q-pa-sm">
-      <!-- <q-field
+    <div class="search__options q-pa-sm">
+      <q-field
         class="home-icons search__options--input search__departure"
         icon="flight_takeoff"
         icon-color="primary"
@@ -60,18 +60,7 @@
           format="ddd, DD MMM YYYY"
           stack-label="Pick a date"
         />
-      </q-field> -->
-      <div v-if="!image">
-        <h2>Select an image</h2>
-        <input type="file" @change="onFileChange">
-      </div>
-      <div v-else>
-        <img :src="image" />
-        <button v-if="!uploadURL" @click="removeImage">Remove image</button>
-        <button v-if="!uploadURL" @click="uploadImage">Upload image</button>
-      </div>
-      <h2 v-if="uploadURL">Success! Image uploaded to:</h2>
-      <a :href="uploadURL">{{ uploadURL }}</a>
+      </q-field>
     </div>
     <div class="wrapper">
       <q-btn
@@ -138,18 +127,18 @@ export default {
    */
   name: "Search",
   mixins: [validationMixin],
-  // validations: {
-  //   departureCity: {
-  //     required,
-  //     minLength: minLength(3),
-  //     isAirport
-  //   },
-  //   arrivalCity: {
-  //     required,
-  //     minLength: minLength(3),
-  //     isAirport
-  //   }
-  // },
+  validations: {
+    departureCity: {
+      required,
+      minLength: minLength(3),
+      isAirport
+    },
+    arrivalCity: {
+      required,
+      minLength: minLength(3),
+      isAirport
+    }
+  },
   data() {
     return {
       /**
@@ -158,69 +147,17 @@ export default {
        * @param {object} departureDate - Departure date chosen by the customer
        * @param {object} suggestionList - Parsed list of airports offered as auto-suggestion
        */
-      // departureCity: "",
-      // arrivalCity: "",
-      // departureDate: new Date(),
-      // suggestionList: parseAirports()
-      image: '',
-      uploadURL: ''
+      departureCity: "",
+      arrivalCity: "",
+      departureDate: new Date(),
+      suggestionList: parseAirports()
     };
   },
   methods: {
-        onFileChange (e) {
-      let files = e.target.files || e.dataTransfer.files
-      if (!files.length) return
-      this.createImage(files[0])
-    },
-    createImage (file) {
-      // var image = new Image()
-      let reader = new FileReader()
-      reader.onload = (e) => {
-        console.log('length: ', e.target.result.includes('data:image/jpeg'))
-        if (!e.target.result.includes('data:image/jpeg')) {
-          return alert('Wrong file type - JPG only.')
-        }
-        if (e.target.result.length > MAX_IMAGE_SIZE) {
-          return alert('Image is loo large - 1Mb maximum')
-        }
-        this.image = e.target.result
-      }
-      reader.readAsDataURL(file)
-    },
-    removeImage: function () {
-      console.log('Remove clicked')
-      this.image = ''
-    },
-    uploadImage: async function () {
-      console.log('Upload clicked')
-      // Get the presigned URL
-      const response = await axios({
-        method: 'GET',
-//        url: `https://9y7akoudyd.execute-api.us-east-1.amazonaws.com/developone`
-        url: 'https://9y7akoudyd.execute-api.us-east-1.amazonaws.com/developone/uploadmyphoto'
-      })
-      console.log('Response: ', response.data)
-      console.log('Uploading: ', this.image)
-      let binary = atob(this.image.split(',')[1])
-      let array = []
-      for (var i = 0; i < binary.length; i++) {
-        array.push(binary.charCodeAt(i))
-      }
-      let blobData = new Blob([new Uint8Array(array)], {type: 'image/jpeg'})
-      console.log('Uploading to: ', response.data.uploadURL)
-      const result = await fetch(response.data.uploadURL, {
-        method: 'PUT',
-        body: blobData
-      })
-      console.log('Result: ', result)
-      // Final URL for the user doesn't need the query string params
-      this.uploadURL = response.data.uploadURL.split('?')[0]
-    }
-  }
     /**
      * search method collects form data, create queryStrings, and redirects to Search Results view
      */
-    /*search() {
+    search() {
       this.$router.push({
         name: "searchResults",
         query: {
@@ -229,11 +166,11 @@ export default {
           arrival: this.arrivalCity
         }
       });
-    },*/
+    },
     /**
      * fuzzySearchFilter method uses Fuse library to easily find airports whether that is city, IATA, initials, etc.
      */
- /*   fuzzySearchFilter(terms, { field, list }) {
+    fuzzySearchFilter(terms, { field, list }) {
       const token = terms.toLowerCase();
       var options = {
         shouldSort: true,
@@ -247,10 +184,8 @@ export default {
       let fuse = new Fuse(list, options);
       let result = fuse.search(token);
       return result;
-    }*/
+    }
   }
-
-
 };
 </script>
 
