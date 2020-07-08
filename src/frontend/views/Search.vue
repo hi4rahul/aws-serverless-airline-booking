@@ -164,7 +164,7 @@ export default {
       // suggestionList: parseAirports()
       image: '',
       uploadURL: ''
-    };
+    }
   },
   methods: {
       onFileChange (e) {
