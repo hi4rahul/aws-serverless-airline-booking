@@ -149,7 +149,7 @@ export default {
   //     minLength: minLength(3),
   //     isAirport
   //   }
-  // },
+  //},
   data() {
     return {
       /**
@@ -250,7 +250,7 @@ export default {
   }
 
 
-};
+}
 </script>
 
 <style lang="stylus" scoped>
