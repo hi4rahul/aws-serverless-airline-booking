@@ -1,5 +1,5 @@
 <template>
-  <q-page class="container">
+   <q-page class="container">
     <div class="wrapper">
       <div class="heading">
         <div class="q-display-1 search__headline" data-test="search-headline">
@@ -60,9 +60,9 @@
           format="ddd, DD MMM YYYY"
           stack-label="Pick a date"
         />
-      </q-field> -->
-    </div>
-    <div class="wrapper">
+      </q-field> 
+    </div>-->
+    <!-- <div class="wrapper">
       <q-btn
         @click="search"
         class="cta__button"
@@ -81,7 +81,7 @@
           size="2.6rem"
         />
       </q-btn>
-    </div>
+    </div> -->
   </q-page>
 </template>
 
