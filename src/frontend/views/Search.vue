@@ -20,16 +20,16 @@
           stack-label="Departure airport"
           data-test="search-departure"
         >
-          <q-autocomplete
+          <!-- <q-autocomplete
             class="search__departure--suggestion text-bold"
             :min-characters="3"
             :static-data="{ field: 'city', list: suggestionList }"
             :filter="fuzzySearchFilter"
             value-field="sublabel"
-          />
+          /> 
         </q-input>
-      </q-field>
-      <q-field
+      </q-field> -->
+      <!-- <q-field
         class="home-icons search__options--input search__arrival"
         icon="flight_land"
         icon-color="primary"
@@ -48,8 +48,8 @@
             value-field="sublabel"
           />
         </q-input>
-      </q-field>
-      <q-field
+      </q-field> -->
+      <!-- <q-field
         icon="calendar_today"
         icon-color="primary"
         class="search__date search__options--input"
@@ -60,7 +60,7 @@
           format="ddd, DD MMM YYYY"
           stack-label="Pick a date"
         />
-      </q-field>
+      </q-field> -->
     </div>
     <div class="wrapper">
       <q-btn
@@ -87,27 +87,27 @@
 
 <script>
 // @ts-nocheck
-import airports from "../store/catalog/airports.json";
-import Fuse from "fuse.js";
-import { date } from "quasar";
-import { validationMixin } from "vuelidate";
-import { required, minLength } from "vuelidate/lib/validators";
-import axios from 'axios';
+// import airports from "../store/catalog/airports.json";
+// import Fuse from "fuse.js";
+// import { date } from "quasar";
+// import { validationMixin } from "vuelidate";
+// import { required, minLength } from "vuelidate/lib/validators";
+// import axios from 'axios';
 
 /**
  * parse list of airports provided from Catalog module
  *
  * @return {object} - list of airports following auto-suggestion Quasar component contract
  */
-const parseAirports = () => {
-  return airports.map(country => {
-    return {
-      city: country.city,
-      label: country.name,
-      sublabel: country.code
-    };
-  });
-};
+// const parseAirports = () => {
+//   return airports.map(country => {
+//     return {
+//       city: country.city,
+//       label: country.name,
+//       sublabel: country.code
+//     };
+//   });
+// };
 
 /**
  * Validate given input against list of valid IATA airports
@@ -115,30 +115,30 @@ const parseAirports = () => {
  * @param {object} vm - Vue scope so outer functions can access store/Vue data
  * @return {boolean} - Boolean whether given airport is a valid IATA airport from airport list
  */
-const isAirport = (value, vm) => {
-  // TODO: debounce or throttle this function in compliance with vuelidate
-  return vm.suggestionList.some(airport => airport.sublabel === value);
-};
+// const isAirport = (value, vm) => {
+//   // TODO: debounce or throttle this function in compliance with vuelidate
+//   return vm.suggestionList.some(airport => airport.sublabel === value);
+// };
 
 export default {
   /**
    *
    * Search view displays options for searching a flight given a departure, arrival and a date.
    */
-  name: "Search",
-  mixins: [validationMixin],
-  validations: {
-    departureCity: {
-      required,
-      minLength: minLength(3),
-      isAirport
-    },
-    arrivalCity: {
-      required,
-      minLength: minLength(3),
-      isAirport
-    }
-  },
+  // name: "Search",
+  // mixins: [validationMixin],
+  // validations: {
+  //   departureCity: {
+  //     required,
+  //     minLength: minLength(3),
+  //     isAirport
+  //   },
+  //   arrivalCity: {
+  //     required,
+  //     minLength: minLength(3),
+  //     isAirport
+  //   }
+  // },
   data() {
     return {
       /**
@@ -159,34 +159,34 @@ export default {
     /**
      * search method collects form data, create queryStrings, and redirects to Search Results view
      */
-    search() {
-      this.$router.push({
-        name: "searchResults",
-        query: {
-          date: date.formatDate(this.departureDate, "YYYY-MM-DD"),
-          departure: this.departureCity,
-          arrival: this.arrivalCity
-        }
-      });
-    },
+    // search() {
+    //   this.$router.push({
+    //     name: "searchResults",
+    //     query: {
+    //       date: date.formatDate(this.departureDate, "YYYY-MM-DD"),
+    //       departure: this.departureCity,
+    //       arrival: this.arrivalCity
+    //     }
+    //   });
+    // },
     /**
      * fuzzySearchFilter method uses Fuse library to easily find airports whether that is city, IATA, initials, etc.
      */
-    fuzzySearchFilter(terms, { field, list }) {
-      const token = terms.toLowerCase();
-      var options = {
-        shouldSort: true,
-        threshold: 0.3,
-        location: 0,
-        distance: 100,
-        maxPatternLength: 10,
-        minMatchCharLength: 3,
-        keys: [field, "sublabel"]
-      };
-      let fuse = new Fuse(list, options);
-      let result = fuse.search(token);
-      return result;
-    }
+    // fuzzySearchFilter(terms, { field, list }) {
+    //   const token = terms.toLowerCase();
+    //   var options = {
+    //     shouldSort: true,
+    //     threshold: 0.3,
+    //     location: 0,
+    //     distance: 100,
+    //     maxPatternLength: 10,
+    //     minMatchCharLength: 3,
+    //     keys: [field, "sublabel"]
+    //   };
+    //   let fuse = new Fuse(list, options);
+    //   let result = fuse.search(token);
+    //   return result;
+    // }
   }
 };
 </script>
