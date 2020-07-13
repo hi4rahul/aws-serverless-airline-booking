@@ -7,18 +7,7 @@
         </div>
       </div>
     </div>
-   <div class="q-pa-md">
-        <q-file
-          style="max-width: 300px"
-          v-model="filesImages"
-          filled
-          label="Restricted to images"
-          multiple
-          accept=".jpg, .jpeg"
-          max-file-size="1024"
-          @rejected="onRejected"
-        />
-    </div>
+
     <div class="search__options q-pa-sm">
       <!-- <q-field
         class="home-icons search__options--input search__departure"
@@ -61,6 +50,18 @@
           />
         </q-input>
       </q-field> -->
+    <!-- <div class="q-pa-md"> -->
+          <q-file
+            style="max-width: 300px"
+            v-model="filesImages"
+            filled
+            label="Restricted to images"
+            multiple
+            accept=".jpg, .jpeg"
+            max-file-size="1024"
+            @rejected="onRejected"
+          />
+      <!-- </div> -->
       <q-field
         icon="calendar_today"
         icon-color="primary"
