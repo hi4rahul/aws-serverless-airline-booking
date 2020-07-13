@@ -8,20 +8,20 @@
       </div>
     </div>
 
-    <div class="search__options q-pa-sm">
-      <!-- <q-field
+     <div class="search__options q-pa-sm">
+    <!--   <q-field
         class="home-icons search__options--input search__departure"
         icon="flight_takeoff"
         icon-color="primary"
         :label-width="8"
-      > -->
-        <!-- <q-input
+      > 
+      <q-input
           class="search__departure"
           v-model="departureCity"
           stack-label="Departure airport"
           data-test="search-departure"
-        > -->
-          <!-- <q-autocomplete
+      > 
+          <q-autocomplete
             class="search__departure--suggestion text-bold"
             :min-characters="3"
             :static-data="{ field: 'city', list: suggestionList }"
@@ -52,7 +52,7 @@
       </q-field> -->
     <!-- <div class="q-pa-md"> -->
         <q-field
-          icon="calendar_today"
+          icon="flight_takeoff"
           icon-color="primary"
           class="search__date search__options--input"
         >
@@ -65,6 +65,11 @@
               max-file-size="1024"
               @rejected="onRejected"
         />
+        <q-btn 
+          label="Upload"
+          @click="identifyFromFile"
+        />
+        </q-field>
       <!-- </div> -->
         <q-field
           icon="calendar_today"
@@ -174,7 +179,16 @@ export default {
     };
   },
   methods: {
-  
+
+      onRejected (rejectedEntries) {
+        // Notify plugin needs to be installed
+        // https://quasar.dev/quasar-plugins/notify#Installation
+        this.$q.notify({
+          type: 'negative',
+          message: `${rejectedEntries.length} file(s) did not pass validation constraints`
+        })
+      },
+
       identifyFromFile(event) {
         const { target: { files } } = event;
         const [file,] = files || [];
