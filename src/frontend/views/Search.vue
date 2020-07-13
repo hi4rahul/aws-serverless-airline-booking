@@ -51,27 +51,31 @@
         </q-input>
       </q-field> -->
     <!-- <div class="q-pa-md"> -->
-          <q-file
-            style="max-width: 300px"
-            v-model="filesImages"
-            filled
-            label="Restricted to images"
-            multiple
-            accept=".jpg, .jpeg"
-            max-file-size="1024"
-            @rejected="onRejected"
-          />
+        <q-field
+          icon="calendar_today"
+          icon-color="primary"
+          class="search__date search__options--input"
+        >
+        <q-file
+              style="max-width: 300px"
+              v-model="filesImages"
+              filled
+              label="Restricted to images"
+              accept=".jpg, .jpeg"
+              max-file-size="1024"
+              @rejected="onRejected"
+        />
       <!-- </div> -->
-      <q-field
-        icon="calendar_today"
-        icon-color="primary"
-        class="search__date search__options--input"
-      >
+        <q-field
+          icon="calendar_today"
+          icon-color="primary"
+          class="search__date search__options--input"
+        >
         <q-datetime
-          v-model="departureDate"
-          type="date"
-          format="ddd, DD MMM YYYY"
-          stack-label="Pick a date"
+            v-model="departureDate"
+            type="date"
+            format="ddd, DD MMM YYYY"
+            stack-label="Pick a date"
         />
       </q-field> 
     </div>
@@ -170,6 +174,51 @@ export default {
     };
   },
   methods: {
+  
+      identifyFromFile(event) {
+        const { target: { files } } = event;
+        const [file,] = files || [];
+        
+        if (!(file.type=='image/jpeg')) {
+          return alert('Wrong file type (JPG only).');
+        }
+        
+        let reader = new FileReader()
+        reader.onload = (e) => {
+          this.image = e.target.result
+        }
+        reader.readAsDataURL(file)
+
+        Predictions.identify({
+            labels: {
+                source: {
+                    file,
+                },
+                type: "ALL"
+            }
+        })
+        .then(response => {
+            const { labels } = response;
+            const { unsafe } = response; // boolean 
+            console.log('labels: ', labels);
+            
+            if(!unsafe){return alert('Image not accepted! Please try with another image!');}
+            else {
+              const predictedlabels = labels; 
+              this.predictedlabels = predictedlabels;
+              }
+            // labels.forEach(object => {
+            //     const { name, boundingBoxes } = object
+            // });
+        })
+        .catch(err => console.log({ err }));
+      },
+
+    removeImage: function () {
+      console.log('Remove clicked');
+      this.image = '';
+    }
+
     /**
      * search method collects form data, create queryStrings, and redirects to Search Results view
      */
