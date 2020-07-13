@@ -7,19 +7,31 @@
         </div>
       </div>
     </div>
+   <div class="q-pa-md">
+        <q-file
+          style="max-width: 300px"
+          v-model="filesImages"
+          filled
+          label="Restricted to images"
+          multiple
+          accept=".jpg, .jpeg"
+          max-file-size="1024"
+          @rejected="onRejected"
+        />
+    </div>
     <div class="search__options q-pa-sm">
-      <q-field
+      <!-- <q-field
         class="home-icons search__options--input search__departure"
         icon="flight_takeoff"
         icon-color="primary"
         :label-width="8"
-      >
-        <q-input
+      > -->
+        <!-- <q-input
           class="search__departure"
           v-model="departureCity"
           stack-label="Departure airport"
           data-test="search-departure"
-        >
+        > -->
           <!-- <q-autocomplete
             class="search__departure--suggestion text-bold"
             :min-characters="3"
@@ -49,7 +61,7 @@
           />
         </q-input>
       </q-field> -->
-      <!-- <q-field
+      <q-field
         icon="calendar_today"
         icon-color="primary"
         class="search__date search__options--input"
@@ -61,7 +73,7 @@
           stack-label="Pick a date"
         />
       </q-field> 
-    </div>-->
+    </div>
     <!-- <div class="wrapper">
       <q-btn
         @click="search"
@@ -152,7 +164,8 @@ export default {
       // departureDate: new Date(),
       // suggestionList: parseAirports()
       image: '',
-      uploadURL: ''
+      uploadURL: '',
+      file: ''
     };
   },
   methods: {
